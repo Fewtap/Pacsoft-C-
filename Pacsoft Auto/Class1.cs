@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium;
+using SeleniumExtras.WaitHelpers;
 using OpenQA.Selenium.Support.UI;
 using System.Threading;
 
@@ -14,24 +15,24 @@ namespace Pacsoft_Auto
     {
         string username = "020634643950112";
         string password = "pedabdist2014";
-        string reference;
-        int amount;
         bool elementFound = false;
-        IWebDriver driver;
+        
 
-        public PacsoftDriver(string reference, int amount)
+        /*public PacsoftDriver(string reference, decimal amount)
         {
-            driver = new ChromeDriver(@"C:\Users\majo\Desktop\Pacsoft Auto\");
+            driver = new ChromeDriver(@"C:\Users\Fewtap\source\repos\Pacsoft-C-\Pacsoft Auto");
             printLabel(reference, amount);
-        }
+        }*/
 
-        public void printLabel(string reference, int amount)
+        public void printLabel(string reference, decimal amount)
         {
-            
+            IWebDriver driver = new ChromeDriver(@"C:\Users\Fewtap\source\repos\Pacsoft-C-\Pacsoft Auto");
+            driver.Manage().Window.Minimize();
 
             //Detta måste ändras sedan
             //driver = new ChromeDriver(@"C:\Users\majo\Desktop\Pacsoft Auto\");
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
+
+            WebDriverWait wait = new WebDriverWait(driver,TimeSpan.FromSeconds(10));
 
             driver.Navigate().GoToUrl("https://www.pacsoftonline.com/");
 
@@ -42,14 +43,18 @@ namespace Pacsoft_Auto
             pass.SendKeys(password);
             pass.SendKeys(Keys.Enter);
 
-            WaitForFrame("menu");
+            IWebElement menuFrame = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Name("menu")));
+            driver.SwitchTo().Frame(menuFrame);
             
             driver.FindElement(By.CssSelector("#MainMenu > li:nth-child(2) > span > a")).Click();
             driver.FindElement(By.CssSelector("#Printing > li:nth-child(2) > span > a")).Click();
 
-            WaitForFrame("body");
+            driver.SwitchTo().ParentFrame();
 
-            IWebElement sndsearch = driver.FindElement(By.Name("SenderSearchValue"));
+            IWebElement bodyframe = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.CssSelector("#menuBodySet > frame:nth-child(2)")));
+            driver.SwitchTo().Frame(bodyframe);
+
+            IWebElement sndsearch = driver.FindElement(By.Name("SENDERSearchValue"));
             sndsearch.SendKeys("1");
             sndsearch.SendKeys(Keys.Enter);
 
@@ -61,7 +66,7 @@ namespace Pacsoft_Auto
 
             driver.FindElement(By.Name("act_ShipmentJobEdit1Actions2_Next")).Click();
 
-            driver.FindElement(By.Name("ShipmentSndReference")).SendKeys(reference + " SAMHALL");
+            driver.FindElement(By.Name("ShipmentSndReference")).SendKeys( reference + " SAMHALL");
 
             IWebElement amountBox = driver.FindElement(By.Name("ParcelGroupCount"));
 
@@ -74,25 +79,17 @@ namespace Pacsoft_Auto
 
             driver.FindElement(By.Name("act_ShipmentJobEdit2Actions2_Print")).Click();
 
+            
+
+            Thread.Sleep(7000);
+
+            driver.Quit();
+
 
         }
 
         
-        void WaitForFrame(string framename)
-        {
-            do
-            {
-                try
-                {
-                    driver.SwitchTo().Frame(framename);
-                    elementFound = true;
-                }
-                catch (NoSuchWindowException)
-                {
-                    elementFound = false;
-                }
-            } while (!elementFound);
-        }
+        
 
 
 

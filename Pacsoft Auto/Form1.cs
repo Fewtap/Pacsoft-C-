@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace Pacsoft_Auto
@@ -17,25 +18,20 @@ namespace Pacsoft_Auto
             InitializeComponent();
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        
+
+        
+
+        private void refBox_TextChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private void button1_Click_1(object sender, EventArgs e)
         {
-
-        }
-
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            PacsoftDriver driverinstance = new(RefBox.Text, int.Parse(AmntBox.Text));
-            
+            PacsoftDriver driver = new PacsoftDriver();
+            Thread thread = new Thread(() => driver.printLabel(refBox.Text, AmntBox.Value));
+            thread.Start();
         }
     }
 
