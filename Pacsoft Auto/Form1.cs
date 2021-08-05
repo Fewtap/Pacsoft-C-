@@ -30,8 +30,22 @@ namespace Pacsoft_Auto
         private void button1_Click_1(object sender, EventArgs e)
         {
             PacsoftDriver driver = new PacsoftDriver();
-            Thread thread = new Thread(() => driver.printLabel(refBox.Text, AmntBox.Value));
-            thread.Start();
+            Thread threadprint = new Thread(() => driver.printLabel(refBox.Text, AmntBox.Value));
+            threadprint.Start();
+
+            
+
+            
+            
+        }
+
+        private void StepIncrement()
+        {
+            for (int i = 0; i < 11; i++)
+            {
+                Thread.Sleep(1000);
+                progressBar1.Increment(1);
+            }
         }
     }
 
