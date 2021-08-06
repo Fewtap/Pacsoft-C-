@@ -77,6 +77,10 @@ namespace Pacsoft_Auto
             updateInstance.Install();
         }
 
+        private void label7_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 
 
