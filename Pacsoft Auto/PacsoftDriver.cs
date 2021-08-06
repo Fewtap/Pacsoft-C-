@@ -19,6 +19,8 @@ namespace Pacsoft_Auto
         bool elementFound = false;
         public TimeSpan ts;
         public static int progress = 0;
+        ChromeOptions options = new ChromeOptions();
+        
 
 
         /*public PacsoftDriver(string reference, decimal amount)
@@ -30,11 +32,11 @@ namespace Pacsoft_Auto
         public void printLabel(string reference, decimal amount)
         {
 
-            
+            options.AddArgument("--log-level=3");
 
             Stopwatch stopwatch = new();
             stopwatch.Start();
-            IWebDriver driver = new ChromeDriver(@"C:\Users\majo\source\repos\Pacsoft Auto\Pacsoft Auto");
+            IWebDriver driver = new ChromeDriver(@"C:\Users\majo\source\repos\Pacsoft Auto\Pacsoft Auto", options);
             //IWebDriver driver = new ChromeDriver(@"C:\Users\Fewtap\source\repos\Pacsoft-C-\Pacsoft Auto");
             driver.Manage().Window.Minimize();
 

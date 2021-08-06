@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Net;
+using System.Windows.Forms;
 using System.Net.Http;
 using System.Reflection;
 using System.Runtime.InteropServices;
@@ -11,6 +12,14 @@ using System.Threading.Tasks;
 
 public class ChromeDriverInstaller
 {
+
+    Pacsoft_Auto.Form1 form;
+
+    public ChromeDriverInstaller(Pacsoft_Auto.Form1 _form)
+    {
+        form = _form;
+    }
+
     private static readonly HttpClient httpClient = new HttpClient
     {
         BaseAddress = new Uri("https://chromedriver.storage.googleapis.com/")
@@ -147,6 +156,9 @@ public class ChromeDriverInstaller
                 throw new Exception("Failed to make chromedriver executable");
             }
         }
+
+        MessageBox.Show("Driver installed");
+
     }
 
     public async Task<string> GetChromeVersion()

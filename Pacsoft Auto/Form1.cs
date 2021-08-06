@@ -34,7 +34,7 @@ namespace Pacsoft_Auto
             Thread threadprint = new Thread(() => driver.printLabel(refBox.Text, AmntBox.Value));
             threadprint.Start();
             Thread progressupdate = new Thread(() => StepIncrement());
-
+            refBox.Text = "";
             progressupdate.Start();
 
             
@@ -73,8 +73,9 @@ namespace Pacsoft_Auto
 
         private void UpdateButton_Click(object sender, EventArgs e)
         {
-            ChromeDriverInstaller updateInstance = new();
+            ChromeDriverInstaller updateInstance = new(this);
             updateInstance.Install();
+            UpdateButton.Enabled = false; 
         }
 
         private void label7_Click(object sender, EventArgs e)
