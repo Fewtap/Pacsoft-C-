@@ -13,6 +13,7 @@ namespace Pacsoft_Auto
 {
     public partial class Form1 : Form
     {
+        BackgroundWorker bgw = new BackgroundWorker();
         public Form1()
         {
             InitializeComponent();
@@ -32,21 +33,50 @@ namespace Pacsoft_Auto
             PacsoftDriver driver = new PacsoftDriver();
             Thread threadprint = new Thread(() => driver.printLabel(refBox.Text, AmntBox.Value));
             threadprint.Start();
+            Thread progressupdate = new Thread(() => StepIncrement());
+
+            progressupdate.Start();
 
             
 
-            
-            
+
+
+
         }
+        
 
         private void StepIncrement()
         {
-            for (int i = 0; i < 11; i++)
+            bool finished = false;
+
+            while (!finished)
             {
-                Thread.Sleep(1000);
-                progressBar1.Increment(1);
+
+                if(PacsoftDriver.progress == 5)
+                {
+                    finished = true;
+                }
+                Thread.Sleep(50);
+                progressBar1.BeginInvoke(
+                    new Action(() => {
+                        progressBar1.Value = PacsoftDriver.progress;
+                    }
+                    ));
             }
+
+            progressBar1.Invoke(new Action(() => {
+
+                Thread.Sleep(1000);
+                progressBar1.Value = 0; }));
+            
         }
+
+        private void UpdateButton_Click(object sender, EventArgs e)
+        {
+            ChromeDriverInstaller updateInstance = new();
+            updateInstance.Install();
+        }
+
     }
 
 

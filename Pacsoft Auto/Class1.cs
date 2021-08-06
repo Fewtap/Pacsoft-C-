@@ -18,19 +18,24 @@ namespace Pacsoft_Auto
         string password = "pedabdist2014";
         bool elementFound = false;
         public TimeSpan ts;
+        public static int progress = 0;
 
 
         /*public PacsoftDriver(string reference, decimal amount)
         {
-            driver = new ChromeDriver(@"C:\Users\Fewtap\source\repos\Pacsoft-C-\Pacsoft Auto");
+            
             printLabel(reference, amount);
         }*/
 
         public void printLabel(string reference, decimal amount)
         {
+
+            
+
             Stopwatch stopwatch = new();
             stopwatch.Start();
-            IWebDriver driver = new ChromeDriver(@"C:\Users\Fewtap\source\repos\Pacsoft-C-\Pacsoft Auto");
+            IWebDriver driver = new ChromeDriver(@"C:\Users\majo\source\repos\Pacsoft Auto\Pacsoft Auto");
+            //IWebDriver driver = new ChromeDriver(@"C:\Users\Fewtap\source\repos\Pacsoft-C-\Pacsoft Auto");
             driver.Manage().Window.Minimize();
 
             //Detta måste ändras sedan
@@ -41,6 +46,8 @@ namespace Pacsoft_Auto
             driver.Navigate().GoToUrl("https://www.pacsoftonline.com/");
 
             driver.SwitchTo().Frame(driver.FindElement(By.Name("outer")));
+
+            progress = 1;
 
             driver.FindElement(By.Name("CompanyLogin")).SendKeys(username);
             IWebElement pass = driver.FindElement(By.Name("UserPass"));
@@ -55,6 +62,8 @@ namespace Pacsoft_Auto
 
             driver.SwitchTo().ParentFrame();
 
+            progress = 2;
+
             IWebElement bodyframe = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.CssSelector("#menuBodySet > frame:nth-child(2)")));
             driver.SwitchTo().Frame(bodyframe);
 
@@ -66,6 +75,8 @@ namespace Pacsoft_Auto
             rcvsearch.SendKeys("1");
             rcvsearch.SendKeys(Keys.Enter);
 
+            progress = 3;
+
             driver.FindElement(By.Name("Service")).SendKeys("Postnord Parcel");
 
             driver.FindElement(By.Name("act_ShipmentJobEdit1Actions2_Next")).Click();
@@ -74,12 +85,16 @@ namespace Pacsoft_Auto
 
             IWebElement amountBox = driver.FindElement(By.Name("ParcelGroupCount"));
 
+            progress = 4;
+
             amountBox.SendKeys(Keys.Control + "a");
             amountBox.SendKeys(Keys.Delete);
             amountBox.SendKeys(amount.ToString());
 
             driver.FindElement(By.Name("ParcelGroupWeight")).SendKeys("1");
             driver.FindElement(By.Name("ParcelGroupContents")).SendKeys("Computer Parts");
+
+            progress = 5;
 
             driver.FindElement(By.Name("act_ShipmentJobEdit2Actions2_Print")).Click();
 
