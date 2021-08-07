@@ -42,6 +42,7 @@ namespace Pacsoft_Auto
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.button2 = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
@@ -55,7 +56,6 @@ namespace Pacsoft_Auto
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
-            this.button2 = new System.Windows.Forms.Button();
             this.CustomParcelTab.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.AmntBox)).BeginInit();
@@ -105,11 +105,11 @@ namespace Pacsoft_Auto
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(204, 216);
+            this.label5.Location = new System.Drawing.Point(213, 184);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(82, 15);
+            this.label5.Size = new System.Drawing.Size(0, 15);
             this.label5.TabIndex = 8;
-            this.label5.Text = "Time Elapsed: ";
+            this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // progressBar1
             // 
@@ -211,6 +211,15 @@ namespace Pacsoft_Auto
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Special Leverans";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(280, 46);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(194, 110);
+            this.button2.TabIndex = 8;
+            this.button2.Text = "Print";
+            this.button2.UseVisualStyleBackColor = true;
             // 
             // comboBox1
             // 
@@ -334,15 +343,6 @@ namespace Pacsoft_Auto
             this.checkedListBox1.Name = "checkedListBox1";
             this.checkedListBox1.Size = new System.Drawing.Size(111, 72);
             this.checkedListBox1.TabIndex = 7;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(280, 46);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(194, 110);
-            this.button2.TabIndex = 8;
-            this.button2.Text = "Print";
-            this.button2.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 

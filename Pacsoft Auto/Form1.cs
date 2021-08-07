@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -28,16 +29,21 @@ namespace Pacsoft_Auto
 
         }
 
-        private void button1_Click_1(object sender, EventArgs e)
+        private async void button1_Click_1(object sender, EventArgs e)
         {
             PacsoftDriver driver = new PacsoftDriver();
-            Thread threadprint = new Thread(() => driver.printLabel(refBox.Text, AmntBox.Value));
-            threadprint.Start();
-            Thread progressupdate = new Thread(() => StepIncrement());
-            refBox.Text = "";
-            progressupdate.Start();
+            //Thread threadprint = new Thread(() => driver.printLabel(refBox.Text, AmntBox.Value));
+            //threadprint.Start();
 
-            
+            //Thread progressupdate = new Thread(() => StepIncrement());
+            refBox.Text = "";
+
+            Task print = driver.printLabelAsync(refBox.Text, AmntBox.Value);
+            Task stepIncr = StepIncrementAsync();
+
+            await print;
+
+
 
 
 
@@ -45,7 +51,7 @@ namespace Pacsoft_Auto
         }
         
 
-        private void StepIncrement()
+        private async Task StepIncrementAsync()
         {
             bool finished = false;
 
@@ -56,18 +62,24 @@ namespace Pacsoft_Auto
                 {
                     finished = true;
                 }
-                Thread.Sleep(50);
+
+                progressBar1.Value = PacsoftDriver.progress;
+
+                /*Thread.Sleep(50);
                 progressBar1.BeginInvoke(
                     new Action(() => {
                         progressBar1.Value = PacsoftDriver.progress;
                     }
-                    ));
+                    ));*/
             }
 
-            progressBar1.Invoke(new Action(() => {
+            /*progressBar1.Invoke(new Action(() => {
 
                 Thread.Sleep(1000);
-                progressBar1.Value = 0; }));
+                progressBar1.Value = 0; }));*/
+
+            await Task.Delay(1000);
+            progressBar1.Value = 0;
             
         }
 
@@ -79,6 +91,11 @@ namespace Pacsoft_Auto
         }
 
         private void label7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label5_Click(object sender, EventArgs e)
         {
 
         }

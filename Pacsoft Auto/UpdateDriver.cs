@@ -25,9 +25,13 @@ public class ChromeDriverInstaller
         BaseAddress = new Uri("https://chromedriver.storage.googleapis.com/")
     };
 
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
     public Task Install() => Install(null, false);
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
     public Task Install(string chromeVersion) => Install(chromeVersion, false);
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
     public Task Install(bool forceDownload) => Install(null, forceDownload);
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
 
     public async Task Install(string chromeVersion, bool forceDownload)
     {
@@ -80,8 +84,12 @@ public class ChromeDriverInstaller
             throw new PlatformNotSupportedException("Your operating system is not supported.");
         }
 
-        string targetPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
+        string targetPath = Directory.GetCurrentDirectory();
+#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
+#pragma warning disable CS8604 // Possible null reference argument.
         targetPath = Path.Combine(targetPath, driverName);
+#pragma warning restore CS8604 // Possible null reference argument.
         if (!forceDownload && File.Exists(targetPath))
         {
             using var process = Process.Start(
@@ -95,7 +103,9 @@ public class ChromeDriverInstaller
                     RedirectStandardError = true,
                 }
             );
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
             string existingChromeDriverVersion = await process.StandardOutput.ReadToEndAsync();
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
             string error = await process.StandardError.ReadToEndAsync();
             await process.WaitForExitAsync();
             process.Kill(true);
@@ -129,7 +139,9 @@ public class ChromeDriverInstaller
         using (var chromeDriverWriter = new FileStream(targetPath, FileMode.Create))
         {
             var entry = zipArchive.GetEntry(driverName);
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
             using Stream chromeDriverStream = entry.Open();
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
             await chromeDriverStream.CopyToAsync(chromeDriverWriter);
         }
 
@@ -147,7 +159,9 @@ public class ChromeDriverInstaller
                     RedirectStandardError = true,
                 }
             );
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
             string error = await process.StandardError.ReadToEndAsync();
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
             await process.WaitForExitAsync();
             process.Kill(true);
 
@@ -165,14 +179,18 @@ public class ChromeDriverInstaller
     {
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
         {
+#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
             string chromePath = (string)Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\App Paths\\chrome.exe", null, null);
+#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
             if (chromePath == null)
             {
                 throw new Exception("Google Chrome not found in registry");
             }
 
             var fileVersionInfo = FileVersionInfo.GetVersionInfo(chromePath);
+#pragma warning disable CS8603 // Possible null reference return.
             return fileVersionInfo.FileVersion;
+#pragma warning restore CS8603 // Possible null reference return.
         }
         else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
         {
@@ -189,7 +207,9 @@ public class ChromeDriverInstaller
                         RedirectStandardError = true,
                     }
                 );
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
                 string output = await process.StandardOutput.ReadToEndAsync();
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
                 string error = await process.StandardError.ReadToEndAsync();
                 await process.WaitForExitAsync();
                 process.Kill(true);
@@ -221,7 +241,9 @@ public class ChromeDriverInstaller
                         RedirectStandardError = true,
                     }
                 );
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
                 string output = await process.StandardOutput.ReadToEndAsync();
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
                 string error = await process.StandardError.ReadToEndAsync();
                 await process.WaitForExitAsync();
                 process.Kill(true);

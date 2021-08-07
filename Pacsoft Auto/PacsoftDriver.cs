@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using System.IO;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium;
 using SeleniumExtras.WaitHelpers;
@@ -16,7 +17,6 @@ namespace Pacsoft_Auto
     {
         string username = "020634643950112";
         string password = "pedabdist2014";
-        bool elementFound = false;
         public TimeSpan ts;
         public static int progress = 0;
         ChromeOptions options = new ChromeOptions();
@@ -29,14 +29,22 @@ namespace Pacsoft_Auto
             printLabel(reference, amount);
         }*/
 
-        public void printLabel(string reference, decimal amount)
+        
+
+
+        public async Task printLabelAsync(string reference, decimal amount)
         {
 
-            options.AddArgument("--log-level=3");
 
-            Stopwatch stopwatch = new();
-            stopwatch.Start();
-            IWebDriver driver = new ChromeDriver(@"C:\Users\majo\source\repos\Pacsoft Auto\Pacsoft Auto", options);
+            ChromeOptions chromeOptions = new ChromeOptions();
+
+            chromeOptions.AddArguments(new List<string>() { "headless", "disable-gpu" });
+
+            string currentdir = Directory.GetCurrentDirectory();
+            ChromeDriverService service = ChromeDriverService.CreateDefaultService(currentdir);
+            service.HideCommandPromptWindow = true;
+            
+            IWebDriver driver = new ChromeDriver(service, chromeOptions);
             //IWebDriver driver = new ChromeDriver(@"C:\Users\Fewtap\source\repos\Pacsoft-C-\Pacsoft Auto");
             driver.Manage().Window.Minimize();
 
@@ -100,12 +108,13 @@ namespace Pacsoft_Auto
 
             driver.FindElement(By.Name("act_ShipmentJobEdit2Actions2_Print")).Click();
 
-            
+            Screenshot screenshot = (driver as ITakesScreenshot).GetScreenshot();
+            screenshot.SaveAsFile("screenshot.png", ScreenshotImageFormat.Png);
 
-            Thread.Sleep(7000);
-            stopwatch.Stop();
-            ts = stopwatch.Elapsed;
+            await Task.Delay(5000);
             driver.Quit();
+
+            
 
 
         }
