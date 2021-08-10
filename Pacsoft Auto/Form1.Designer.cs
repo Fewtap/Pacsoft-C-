@@ -31,9 +31,9 @@ namespace Pacsoft_Auto
         {
             this.CustomParcelTab = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.printBar = new System.Windows.Forms.ProgressBar();
             this.UpdateButton = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.AmntBox = new System.Windows.Forms.NumericUpDown();
@@ -74,9 +74,9 @@ namespace Pacsoft_Auto
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.printBar);
             this.tabPage1.Controls.Add(this.UpdateButton);
             this.tabPage1.Controls.Add(this.label5);
-            this.tabPage1.Controls.Add(this.progressBar1);
             this.tabPage1.Controls.Add(this.label4);
             this.tabPage1.Controls.Add(this.label3);
             this.tabPage1.Controls.Add(this.AmntBox);
@@ -91,6 +91,14 @@ namespace Pacsoft_Auto
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Samhall Retur";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // printBar
+            // 
+            this.printBar.Location = new System.Drawing.Point(6, 290);
+            this.printBar.Maximum = 5;
+            this.printBar.Name = "printBar";
+            this.printBar.Size = new System.Drawing.Size(502, 23);
+            this.printBar.TabIndex = 10;
             // 
             // UpdateButton
             // 
@@ -110,16 +118,6 @@ namespace Pacsoft_Auto
             this.label5.Size = new System.Drawing.Size(0, 15);
             this.label5.TabIndex = 8;
             this.label5.Click += new System.EventHandler(this.label5_Click);
-            // 
-            // progressBar1
-            // 
-            this.progressBar1.Location = new System.Drawing.Point(0, 290);
-            this.progressBar1.Maximum = 5;
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(514, 23);
-            this.progressBar1.Step = 1;
-            this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
-            this.progressBar1.TabIndex = 7;
             // 
             // label4
             // 
@@ -374,7 +372,6 @@ namespace Pacsoft_Auto
         private System.Windows.Forms.NumericUpDown AmntBox;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button UpdateButton;
         private System.Windows.Forms.Label label6;
@@ -391,6 +388,7 @@ namespace Pacsoft_Auto
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.ProgressBar printBar;
     }
 }
 

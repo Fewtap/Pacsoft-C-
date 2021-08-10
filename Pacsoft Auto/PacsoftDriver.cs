@@ -15,8 +15,9 @@ namespace Pacsoft_Auto
 {
     public class PacsoftDriver
     {
-        string username = "020634643950112";
-        string password = "pedabdist2014";
+        static string username = "020634643950112";
+        static string password = "pedabdist2014";
+        public static bool IsRunning;
         public TimeSpan ts;
         public static int progress = 0;
         ChromeOptions options = new ChromeOptions();
@@ -32,13 +33,13 @@ namespace Pacsoft_Auto
         
 
 
-        public async Task printLabelAsync(string reference, decimal amount)
+        public static void printLabel(string reference, decimal amount)
         {
-
+            IsRunning = true;
 
             ChromeOptions chromeOptions = new ChromeOptions();
 
-            chromeOptions.AddArguments(new List<string>() { "headless", "disable-gpu" });
+            //chromeOptions.AddArguments(new List<string>() { "headless", "disable-gpu" });
 
             string currentdir = Directory.GetCurrentDirectory();
             ChromeDriverService service = ChromeDriverService.CreateDefaultService(currentdir);
@@ -111,7 +112,8 @@ namespace Pacsoft_Auto
             Screenshot screenshot = (driver as ITakesScreenshot).GetScreenshot();
             screenshot.SaveAsFile("screenshot.png", ScreenshotImageFormat.Png);
 
-            await Task.Delay(5000);
+            Thread.Sleep(5000);
+            IsRunning = false;
             driver.Quit();
 
             
