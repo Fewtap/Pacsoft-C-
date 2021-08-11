@@ -38,7 +38,7 @@ namespace Pacsoft_Auto
             this.label3 = new System.Windows.Forms.Label();
             this.AmntBox = new System.Windows.Forms.NumericUpDown();
             this.button1 = new System.Windows.Forms.Button();
-            this.refBox = new System.Windows.Forms.TextBox();
+            this.ReferenceBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
@@ -81,7 +81,7 @@ namespace Pacsoft_Auto
             this.tabPage1.Controls.Add(this.label3);
             this.tabPage1.Controls.Add(this.AmntBox);
             this.tabPage1.Controls.Add(this.button1);
-            this.tabPage1.Controls.Add(this.refBox);
+            this.tabPage1.Controls.Add(this.ReferenceBox);
             this.tabPage1.Controls.Add(this.label2);
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Location = new System.Drawing.Point(4, 24);
@@ -164,13 +164,13 @@ namespace Pacsoft_Auto
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
-            // refBox
+            // ReferenceBox
             // 
-            this.refBox.Location = new System.Drawing.Point(204, 85);
-            this.refBox.Name = "refBox";
-            this.refBox.Size = new System.Drawing.Size(100, 23);
-            this.refBox.TabIndex = 1;
-            this.refBox.TextChanged += new System.EventHandler(this.refBox_TextChanged);
+            this.ReferenceBox.Location = new System.Drawing.Point(204, 85);
+            this.ReferenceBox.Name = "ReferenceBox";
+            this.ReferenceBox.Size = new System.Drawing.Size(100, 23);
+            this.ReferenceBox.TabIndex = 1;
+            this.ReferenceBox.TextChanged += new System.EventHandler(this.refBox_TextChanged);
             // 
             // label2
             // 
@@ -367,7 +367,7 @@ namespace Pacsoft_Auto
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox refBox;
+        private System.Windows.Forms.TextBox ReferenceBox;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.NumericUpDown AmntBox;
         private System.Windows.Forms.Label label4;

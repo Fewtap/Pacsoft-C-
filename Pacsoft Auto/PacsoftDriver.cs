@@ -33,7 +33,7 @@ namespace Pacsoft_Auto
         
 
 
-        public static void printLabel(string reference, decimal amount)
+        public static Task printLabel(string reference, decimal amount)
         {
             IsRunning = true;
 
@@ -92,7 +92,9 @@ namespace Pacsoft_Auto
 
             driver.FindElement(By.Name("act_ShipmentJobEdit1Actions2_Next")).Click();
 
-            driver.FindElement(By.Name("ShipmentSndReference")).SendKeys( reference + " SAMHALL");
+            driver.FindElement(By.Name("ShipmentSndReference")).SendKeys( reference.ToString() + " SAMHALL");
+
+            Thread.Sleep(2000);
 
             IWebElement amountBox = driver.FindElement(By.Name("ParcelGroupCount"));
 
@@ -114,9 +116,9 @@ namespace Pacsoft_Auto
 
             Thread.Sleep(5000);
             IsRunning = false;
-            driver.Quit();
+            driver.Close();
 
-            
+            return null;
 
 
         }

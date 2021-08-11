@@ -47,7 +47,7 @@ namespace Pacsoft_Auto
 
         }
 
-        private void button1_Click_1(object sender, EventArgs e)
+        private async void button1_Click_1(object sender, EventArgs e)
         {
             if (PacsoftDriver.IsRunning)
             {
@@ -55,11 +55,15 @@ namespace Pacsoft_Auto
             }
             else
             {
-                Thread threadprint = new Thread(() => PacsoftDriver.printLabel(refBox.Text, AmntBox.Value));
-                threadprint.Start();
+                string reference = ReferenceBox.Text;
+                decimal amnt = AmntBox.Value;
+                Task print = Task.Run(() => PacsoftDriver.printLabel(reference, amnt));
 
-                Thread progressupdate = new Thread(() => StepIncrement());
-                refBox.Text = "";
+
+                Task incr = Task.Run(() => StepIncrement());
+
+                
+                ReferenceBox.Text = "";
 
             }
 
@@ -75,22 +79,14 @@ namespace Pacsoft_Auto
         }
         
 
-        private void StepIncrement()
+        private Task StepIncrement()
         {
             bool finished = false;
 
-            while (!finished)
+            while (PacsoftDriver.IsRunning)
             {
 
-                if (PacsoftDriver.progress == 5)
-                {
-                    finished = true;
-                    printBar.BeginInvoke(new Action(() =>
-                    {
-                        printBar.Value = 0;
-
-                    }));
-                }
+                
 
 
 
@@ -103,6 +99,12 @@ namespace Pacsoft_Auto
                 
 
             }
+
+            printBar.BeginInvoke(new Action(() =>
+            {
+                printBar.Value = 0;
+            }));
+            return null;
             
         }
 
