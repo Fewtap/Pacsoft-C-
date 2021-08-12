@@ -1,8 +1,0 @@
-C:\Users\majo\source\repos\Pacsoft Auto\Pacsoft Auto\bin\publish\Pacsoft Auto.exe
-C:\Users\majo\source\repos\Pacsoft Auto\Pacsoft Auto\bin\publish\Pacsoft Auto.dll
-C:\Users\majo\source\repos\Pacsoft Auto\Pacsoft Auto\bin\publish\Pacsoft Auto.deps.json
-C:\Users\majo\source\repos\Pacsoft Auto\Pacsoft Auto\bin\publish\Pacsoft Auto.runtimeconfig.json
-C:\Users\majo\source\repos\Pacsoft Auto\Pacsoft Auto\bin\publish\Pacsoft Auto.pdb
-C:\Users\majo\source\repos\Pacsoft Auto\Pacsoft Auto\bin\publish\SeleniumExtras.WaitHelpers.dll
-C:\Users\majo\source\repos\Pacsoft Auto\Pacsoft Auto\bin\publish\Newtonsoft.Json.dll
-C:\Users\majo\source\repos\Pacsoft Auto\Pacsoft Auto\bin\publish\WebDriver.dll
