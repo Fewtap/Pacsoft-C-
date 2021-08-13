@@ -81,7 +81,7 @@ namespace Pacsoft_Auto
 
         private Task StepIncrement()
         {
-            bool finished = false;
+            
 
             while (PacsoftDriver.IsRunning)
             {

@@ -39,7 +39,7 @@ namespace Pacsoft_Auto
 
             ChromeOptions chromeOptions = new ChromeOptions();
 
-            //chromeOptions.AddArguments(new List<string>() { "headless", "disable-gpu" });
+            //chromeOptions.AddArguments(new List<string>() { "headless" });
 
             string currentdir = Directory.GetCurrentDirectory();
             ChromeDriverService service = ChromeDriverService.CreateDefaultService(currentdir);
@@ -113,7 +113,7 @@ namespace Pacsoft_Auto
 
             Screenshot screenshot = (driver as ITakesScreenshot).GetScreenshot();
             screenshot.SaveAsFile("screenshot.png", ScreenshotImageFormat.Png);
-
+            driver.Manage().Window.Minimize();
             Thread.Sleep(5000);
             IsRunning = false;
             driver.Close();
