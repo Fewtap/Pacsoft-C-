@@ -29,7 +29,7 @@ namespace Pacsoft_Auto
         {
             try
             {
-                Process[] proc = Process.GetProcessesByName("chromedriver.exe");
+                Process[] proc = Process.GetProcessesByName("chromedriver");
                 foreach (var item in proc)
                 {
                     item.Kill();
