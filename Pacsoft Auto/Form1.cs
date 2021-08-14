@@ -67,15 +67,6 @@ namespace Pacsoft_Auto
 
             }
 
-
-
-
-
-
-
-
-
-
         }
         
 
@@ -86,17 +77,10 @@ namespace Pacsoft_Auto
             while (PacsoftDriver.IsRunning)
             {
 
-                
-
-
-
                 printBar.BeginInvoke(new Action(() =>
                 {
                     printBar.Value = PacsoftDriver.progress;
                 }));
-
-                
-                
 
             }
 
@@ -123,6 +107,13 @@ namespace Pacsoft_Auto
         private void label5_Click(object sender, EventArgs e)
         {
 
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            CloseChromeProcesses();
+
+            base.OnFormClosing(e);
         }
     }
 
