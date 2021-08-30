@@ -20,27 +20,13 @@ namespace Pacsoft_Auto
         public Form1()
         {
             InitializeComponent();
-            CloseChromeProcesses();
+            
             this.AcceptButton = button1;
             
         }
 
         
-        private async void CloseChromeProcesses()
-        {
-            try
-            {
-                Process[] proc = Process.GetProcessesByName("chromedriver");
-                foreach (var item in proc)
-                {
-                    item.Kill();
-                }
-            }
-            catch(Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-        }
+        
         
 
         private void refBox_TextChanged(object sender, EventArgs e)

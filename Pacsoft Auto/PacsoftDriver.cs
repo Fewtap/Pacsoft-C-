@@ -10,6 +10,7 @@ using OpenQA.Selenium;
 using SeleniumExtras.WaitHelpers;
 using OpenQA.Selenium.Support.UI;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace Pacsoft_Auto
 {
@@ -44,8 +45,17 @@ namespace Pacsoft_Auto
             string currentdir = Directory.GetCurrentDirectory();
             ChromeDriverService service = ChromeDriverService.CreateDefaultService(currentdir);
             service.HideCommandPromptWindow = true;
+            IWebDriver driver;
+            try
+            {
+                IWebDriver driver = new ChromeDriver(service, chromeOptions);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Wrong chromedriver installed.");
+                
+            }
             
-            IWebDriver driver = new ChromeDriver(service, chromeOptions);
             //IWebDriver driver = new ChromeDriver(@"C:\Users\Fewtap\source\repos\Pacsoft-C-\Pacsoft Auto");
             driver.Manage().Window.Minimize();
 
