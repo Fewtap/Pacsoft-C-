@@ -114,11 +114,29 @@ namespace Pacsoft_Auto
             Screenshot screenshot = (driver as ITakesScreenshot).GetScreenshot();
             screenshot.SaveAsFile("screenshot.png", ScreenshotImageFormat.Png);
             driver.Manage().Window.Minimize();
-            Thread.Sleep(5000);
+            
             IsRunning = false;
             driver.Close();
+            var ProcList = Process.GetProcesses();
+            try
+            {
+                foreach (var proc in ProcList)
+                {
+                    if (proc.ProcessName.Contains("chromedriver"))
+                    {
+                        proc.Kill();
+                        Debug.WriteLine(proc.ProcessName + " killed.");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
 
             return null;
+
+            
 
 
         }

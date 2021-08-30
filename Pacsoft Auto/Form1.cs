@@ -21,6 +21,7 @@ namespace Pacsoft_Auto
         {
             InitializeComponent();
             CloseChromeProcesses();
+            this.AcceptButton = button1;
             
         }
 

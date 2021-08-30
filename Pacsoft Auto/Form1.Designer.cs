@@ -74,6 +74,7 @@ namespace Pacsoft_Auto
             // 
             // tabPage1
             // 
+            this.tabPage1.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
             this.tabPage1.Controls.Add(this.printBar);
             this.tabPage1.Controls.Add(this.UpdateButton);
             this.tabPage1.Controls.Add(this.label5);
@@ -344,6 +345,7 @@ namespace Pacsoft_Auto
             // 
             // Form1
             // 
+            this.AcceptButton = this.button1;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(546, 371);
