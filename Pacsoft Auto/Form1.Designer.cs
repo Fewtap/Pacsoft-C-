@@ -31,6 +31,8 @@ namespace Pacsoft_Auto
         {
             this.CustomParcelTab = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label12 = new System.Windows.Forms.Label();
+            this.delayBar = new System.Windows.Forms.NumericUpDown();
             this.printBar = new System.Windows.Forms.ProgressBar();
             this.UpdateButton = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
@@ -58,6 +60,7 @@ namespace Pacsoft_Auto
             this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
             this.CustomParcelTab.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.delayBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.AmntBox)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.SuspendLayout();
@@ -75,6 +78,8 @@ namespace Pacsoft_Auto
             // tabPage1
             // 
             this.tabPage1.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
+            this.tabPage1.Controls.Add(this.label12);
+            this.tabPage1.Controls.Add(this.delayBar);
             this.tabPage1.Controls.Add(this.printBar);
             this.tabPage1.Controls.Add(this.UpdateButton);
             this.tabPage1.Controls.Add(this.label5);
@@ -92,6 +97,43 @@ namespace Pacsoft_Auto
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Samhall Retur";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(60, 8);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(23, 15);
+            this.label12.TabIndex = 12;
+            this.label12.Text = "ms";
+            this.label12.Click += new System.EventHandler(this.label12_Click);
+            // 
+            // delayBar
+            // 
+            this.delayBar.Increment = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.delayBar.Location = new System.Drawing.Point(6, 6);
+            this.delayBar.Maximum = new decimal(new int[] {
+            5000,
+            0,
+            0,
+            0});
+            this.delayBar.Minimum = new decimal(new int[] {
+            200,
+            0,
+            0,
+            0});
+            this.delayBar.Name = "delayBar";
+            this.delayBar.Size = new System.Drawing.Size(48, 23);
+            this.delayBar.TabIndex = 11;
+            this.delayBar.Value = new decimal(new int[] {
+            201,
+            0,
+            0,
+            0});
             // 
             // printBar
             // 
@@ -355,6 +397,7 @@ namespace Pacsoft_Auto
             this.CustomParcelTab.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.delayBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.AmntBox)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
@@ -391,6 +434,8 @@ namespace Pacsoft_Auto
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.ProgressBar printBar;
+        private System.Windows.Forms.NumericUpDown delayBar;
+        private System.Windows.Forms.Label label12;
     }
 }
 

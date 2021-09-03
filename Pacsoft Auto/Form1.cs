@@ -22,7 +22,14 @@ namespace Pacsoft_Auto
             InitializeComponent();
             
             this.AcceptButton = button1;
-            
+            if(usersettings.Default.FirstRun == true)
+            {
+                usersettings.Default.FirstRun = false;
+            }
+            else
+            {
+                delayBar.Value = (decimal)usersettings.Default.delay;
+            }
         }
 
         
@@ -36,18 +43,39 @@ namespace Pacsoft_Auto
 
         private async void button1_Click_1(object sender, EventArgs e)
         {
+
+
+            int val = ReturnDelayValue();
+
+            if(val == -1)
+            {
+                return;
+            }
+
             if (PacsoftDriver.IsRunning)
             {
                 MessageBox.Show("Printing already in progress");
             }
             else
             {
+                PacsoftDriver driver = new PacsoftDriver(val);
                 string reference = ReferenceBox.Text;
                 decimal amnt = AmntBox.Value;
-                Task print = Task.Run(() => PacsoftDriver.printLabel(reference, amnt));
+                try
+                {
+                    Task print = Task.Run(() => driver.printLabel(reference, amnt));
+                    await print;
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex.Message);
+                    MessageBox.Show(ex.Message);
+                }
+                
+                
 
 
-                Task incr = Task.Run(() => StepIncrement());
+                //Task incr = Task.Run(() => StepIncrement());
 
                 
                 ReferenceBox.Text = "";
@@ -55,7 +83,38 @@ namespace Pacsoft_Auto
             }
 
         }
-        
+       
+        int ReturnDelayValue()
+        {
+            int value;
+
+            try
+            {
+                value = (int)delayBar.Value;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return -1;
+            }
+
+
+
+            if (value != usersettings.Default.delay && (int)delayBar.Value != 0)
+            {
+                
+                usersettings.Default.delay = value;
+                usersettings.Default.Save();
+            }
+            else if (value == 0)
+            {
+                MessageBox.Show("Du måste ha något värde i 'Delay Rutan'");
+                return -1;
+            }
+
+            return value;
+
+        }
 
         private Task StepIncrement()
         {
@@ -96,11 +155,9 @@ namespace Pacsoft_Auto
 
         }
 
-        protected override void OnFormClosing(FormClosingEventArgs e)
+        private void label12_Click(object sender, EventArgs e)
         {
-            CloseChromeProcesses();
 
-            base.OnFormClosing(e);
         }
     }
 

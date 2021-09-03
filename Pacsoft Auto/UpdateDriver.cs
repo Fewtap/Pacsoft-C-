@@ -20,6 +20,11 @@ public class ChromeDriverInstaller
         form = _form;
     }
 
+    public ChromeDriverInstaller()
+    {
+
+    }
+
     private static readonly HttpClient httpClient = new HttpClient
     {
         BaseAddress = new Uri("https://chromedriver.storage.googleapis.com/")

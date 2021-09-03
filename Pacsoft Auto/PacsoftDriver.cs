@@ -11,6 +11,8 @@ using SeleniumExtras.WaitHelpers;
 using OpenQA.Selenium.Support.UI;
 using System.Threading;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+
 
 namespace Pacsoft_Auto
 {
@@ -20,9 +22,11 @@ namespace Pacsoft_Auto
         static string password = "pedabdist2014";
         public static bool IsRunning;
         public TimeSpan ts;
+        int delay;
+        
         public static int progress = 0;
         ChromeOptions options = new ChromeOptions();
-        
+
 
 
         /*public PacsoftDriver(string reference, decimal amount)
@@ -31,13 +35,16 @@ namespace Pacsoft_Auto
             printLabel(reference, amount);
         }*/
 
-        
+        public PacsoftDriver(int _delay)
+        {
+            delay = _delay;
+        }
 
 
-        public static Task printLabel(string reference, decimal amount)
+        public async Task printLabel(string reference, decimal amount)
         {
             IsRunning = true;
-
+            
             ChromeOptions chromeOptions = new ChromeOptions();
 
             //chromeOptions.AddArguments(new List<string>() { "headless" });
@@ -45,14 +52,18 @@ namespace Pacsoft_Auto
             string currentdir = Directory.GetCurrentDirectory();
             ChromeDriverService service = ChromeDriverService.CreateDefaultService(currentdir);
             service.HideCommandPromptWindow = true;
-            IWebDriver driver;
+            IWebDriver driver = null;
             try
             {
-                IWebDriver driver = new ChromeDriver(service, chromeOptions);
+                driver = new ChromeDriver(service,chromeOptions);
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Wrong chromedriver installed.");
+
+                IsRunning = false;
+                progress = 0;
+                KillAllChromeProcesses();
+                throw new Exception("Driver is not updated");
                 
             }
             
@@ -73,7 +84,7 @@ namespace Pacsoft_Auto
             driver.FindElement(By.Name("CompanyLogin")).SendKeys(username);
             IWebElement pass = driver.FindElement(By.Name("UserPass"));
             pass.SendKeys(password);
-            pass.SendKeys(Keys.Enter);
+            pass.SendKeys(OpenQA.Selenium.Keys.Enter);
 
             IWebElement menuFrame = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Name("menu")));
             driver.SwitchTo().Frame(menuFrame);
@@ -90,11 +101,11 @@ namespace Pacsoft_Auto
 
             IWebElement sndsearch = driver.FindElement(By.Name("SENDERSearchValue"));
             sndsearch.SendKeys("1");
-            sndsearch.SendKeys(Keys.Enter);
+            sndsearch.SendKeys(OpenQA.Selenium.Keys.Enter);
 
             IWebElement rcvsearch = driver.FindElement(By.Name("RECEIVERSearchValue"));
             rcvsearch.SendKeys("1");
-            rcvsearch.SendKeys(Keys.Enter);
+            rcvsearch.SendKeys(OpenQA.Selenium.Keys.Enter);
 
             progress = 3;
 
@@ -110,8 +121,8 @@ namespace Pacsoft_Auto
 
             progress = 4;
 
-            amountBox.SendKeys(Keys.Control + "a");
-            amountBox.SendKeys(Keys.Delete);
+            amountBox.SendKeys(OpenQA.Selenium.Keys.Control + "a");
+            amountBox.SendKeys(OpenQA.Selenium.Keys.Delete);
             amountBox.SendKeys(amount.ToString());
 
             driver.FindElement(By.Name("ParcelGroupWeight")).SendKeys("1");
@@ -120,13 +131,24 @@ namespace Pacsoft_Auto
             progress = 5;
 
             driver.FindElement(By.Name("act_ShipmentJobEdit2Actions2_Print")).Click();
-
-            Screenshot screenshot = (driver as ITakesScreenshot).GetScreenshot();
-            screenshot.SaveAsFile("screenshot.png", ScreenshotImageFormat.Png);
-            driver.Manage().Window.Minimize();
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.CssSelector("#historyDiv > div.body-main > form > div.print-block > div.printer-block-outline > div > span.printer-block-text")));
+            Thread.Sleep(delay);
+            driver.Close();
+            
             
             IsRunning = false;
-            driver.Close();
+            
+            KillAllChromeProcesses();
+            
+
+            
+
+            
+
+
+        }
+        void KillAllChromeProcesses()
+        {
             var ProcList = Process.GetProcesses();
             try
             {
@@ -143,12 +165,6 @@ namespace Pacsoft_Auto
             {
                 Debug.WriteLine(ex.Message);
             }
-
-            return null;
-
-            
-
-
         }
 
         public void printLabel(string name, string adress, string zipcode, string country, string contactPerson, string phonenumber)
@@ -168,7 +184,7 @@ namespace Pacsoft_Auto
             driver.FindElement(By.Name("CompanyLogin")).SendKeys(username);
             IWebElement pass = driver.FindElement(By.Name("UserPass"));
             pass.SendKeys(password);
-            pass.SendKeys(Keys.Enter);
+            pass.SendKeys(OpenQA.Selenium.Keys.Enter);
 
             IWebElement menuFrame = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Name("menu")));
             driver.SwitchTo().Frame(menuFrame);
@@ -183,7 +199,7 @@ namespace Pacsoft_Auto
 
             IWebElement sndsearch = driver.FindElement(By.Name("SENDERSearchValue"));
             sndsearch.SendKeys("1");
-            sndsearch.SendKeys(Keys.Enter);
+            sndsearch.SendKeys(OpenQA.Selenium.Keys.Enter);
 
             driver.FindElement(By.CssSelector("#RECEIVER > div > div > div.block-corners > div > div.block-entry > div > span")).Click();
         }
